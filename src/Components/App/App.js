@@ -29,14 +29,7 @@ class App extends Component {
         artist: "Dr Zeus",
         album: "Judaa 2",
         isRemoval: false
-      }, 
-      {
-        id: 4,
-        name: "Leekan",
-        artist: "Amrinder Gill",
-        album: "Ashke",
-        isRemoval: false
-      }]
+      } ]
     };
   }
 
@@ -47,7 +40,7 @@ class App extends Component {
           <div className="App">
               <SearchBar />
               <div className="App-playlist">
-                <SearchResults />
+                <SearchResults searchResults={this.state.searchResults} />
                 <Playlist />
               </div>
           </div>
