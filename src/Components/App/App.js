@@ -14,23 +14,50 @@ class App extends Component {
         name: "Akhar",
         artist: "Amrinder Gill",
         album: "Lahoriye",
-        isRemoval: false
       }, 
       {
         id: 2,
         name: "Car Reebna Wali",
         artist: "Amrinder Gill",
         album: "Bhajjo Veero Ve",
-        isRemoval: false
       }, 
       {
         id: 3,
         name: "Mera Deewanapan",
         artist: "Dr Zeus",
         album: "Judaa 2",
-        isRemoval: false
-      } ]
+      } ],
+      playlistName: "Soulful",
+
+      playlistTracks: [
+        {
+        id: 4,
+        name: "Kurta Suha",
+        artist: "Amrinder Gill",
+        album: "Angrez",
+        },
+        {
+        id: 5,
+        name: "Heerey",
+        artist: "Amrinder Gill",
+        album: "Love Punjab",
+        },
+      ]
     };
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  addTrack(track){
+    let arr = this.state.playlistTracks;
+    let found = arr.some(el => {
+      return el.id === track.id;
+    });
+
+    if(!found) {
+      this.setState({
+        playlistTracks: this.state.playlistTracks.push(track)
+      });
+    }
   }
 
   render() {
@@ -40,8 +67,8 @@ class App extends Component {
           <div className="App">
               <SearchBar />
               <div className="App-playlist">
-                <SearchResults searchResults={this.state.searchResults} />
-                <Playlist />
+                <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+                <Playlist playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
               </div>
           </div>
       </div>

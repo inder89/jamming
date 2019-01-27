@@ -5,14 +5,18 @@ class Track extends Component{
     constructor(props) {
         super(props);
         this.renderAction = this.renderAction.bind(this);
+        this.addTrack = this.addTrack.bind(this);
     }
     
     renderAction(isRemoval) {
         if(isRemoval) {
-            return  "-";
+            return "-";
         } else {
-            return  "+"; 
+            return "+"; 
         }
+    }
+    addTrack(){
+        this.props.onAdd(this.props.track);
     }
 
     render() {
@@ -23,7 +27,7 @@ class Track extends Component{
                     <p>{this.props.track.artist} | {this.props.track.album}</p>
                 </div>
                 
-                <button className="Track-action">{this.renderAction}</button>
+                <a className="Track-action" onClick={this.addTrack} >{this.renderAction}</a>
             </div>
         );
     }
