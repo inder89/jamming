@@ -4,6 +4,7 @@ import Track from '../Track/Track';
 
  class TrackList extends Component {
     render() {
+        
        
         return this.props.tracks ? 
             (
@@ -11,7 +12,7 @@ import Track from '../Track/Track';
                     {console.log(this.props.tracks)}
                         { 
                             this.props.tracks.map((track) => { 
-                                return (<Track track={track} key={track.id} onAdd={this.props.onAdd} />)
+                                return (<Track track={track} key={track.id} onAdd={this.props.onAdd} isRemoval={this.props.isRemoval} />)
                             })
                         }
                             
