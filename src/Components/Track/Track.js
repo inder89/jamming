@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
 import './Track.css';
 
-class Track extends Component {
-    renderAction() {
-        
+class Track extends Component{  
+    constructor(props) {
+        super(props);
+        this.renderAction = this.renderAction.bind(this);
     }
+    
+    renderAction() {
+        if(isRemoval) {
+            return  "-";
+        } else {
+            return  "+"; 
+        }
+    }
+
     render() {
         return(
             <div className="Track">
@@ -13,7 +23,7 @@ class Track extends Component {
                     <p>!-- track artist will go here--> | !-- track album will go here --></p>
                 </div>
                 
-                <a class="Track-action">!-- + or - will go here --></a>
+                <a className="Track-action">{this.renderAction}</a>
             </div>
         );
     }

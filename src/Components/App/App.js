@@ -5,6 +5,41 @@ import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchResults: [ 
+      {
+        id: 1,
+        name: "Akhar",
+        artist: "Amrinder Gill",
+        album: "Lahoriye",
+        isRemoval: false
+      }, 
+      {
+        id: 2,
+        name: "Car Reebna Wali",
+        artist: "Amrinder Gill",
+        album: "Bhajjo Veero Ve",
+        isRemoval: false
+      }, 
+      {
+        id: 3,
+        name: "Mera Deewanapan",
+        artist: "Dr Zeus",
+        album: "Judaa 2",
+        isRemoval: false
+      }, 
+      {
+        id: 4,
+        name: "Leekan",
+        artist: "Amrinder Gill",
+        album: "Ashke",
+        isRemoval: false
+      }]
+    };
+  }
+
   render() {
     return (
       <div>
@@ -23,14 +58,3 @@ class App extends Component {
 
 export default App;
 
-
-{/* <div>
-  <h1>Ja<span class="highlight">mmm</span>ing</h1>
-  <div class="App">
-    <!-- Add a SearchBar component -->
-    <div class="App-playlist">
-      <!-- Add a SearchResults component -->
-      <!-- Add a Playlist component -->
-    </div>
-  </div>
-</div> */}
