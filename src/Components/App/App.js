@@ -10,19 +10,19 @@ class App extends Component {
     this.state = {
       searchResults: [ 
       {
-        id: 1,
+        id: '1',
         name: "Akhar",
         artist: "Amrinder Gill",
         album: "Lahoriye",
       }, 
       {
-        id: 2,
+        id: '2',
         name: "Car Reebna Wali",
         artist: "Amrinder Gill",
         album: "Bhajjo Veero Ve",
       }, 
       {
-        id: 3,
+        id: '3',
         name: "Mera Deewanapan",
         artist: "Dr Zeus",
         album: "Judaa 2",
@@ -31,33 +31,36 @@ class App extends Component {
 
       playlistTracks: [
         {
-        id: 4,
+        id: '4',
         name: "Kurta Suha",
         artist: "Amrinder Gill",
         album: "Angrez",
         },
         {
-        id: 5,
-        name: "Heerey",
+        id: '5',
+        name: "jatt",
         artist: "Amrinder Gill",
         album: "Love Punjab",
         },
       ]
     };
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track){
-    let arr = this.state.playlistTracks;
-    let found = arr.some(el => {
-      return el.id === track.id;
-    });
-
-    if(!found) {
-      this.setState({
-        playlistTracks: this.state.playlistTracks.push(track)
-      });
+    if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+        return;
+    } else {
+      let currentPlaylist = this.state.playlistTracks.slice();
+      currentPlaylist.push(track);
+      this.setState({ playlistTracks: currentPlaylist});
     }
+  }
+
+  removeTrack(track){
+    let currentPlaylist = this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id);
+    this.setState({ playlistTracks: currentPlaylist});
   }
 
   render() {
@@ -68,7 +71,7 @@ class App extends Component {
               <SearchBar />
               <div className="App-playlist">
                 <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-                <Playlist playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
+                <Playlist playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack} />
               </div>
           </div>
       </div>

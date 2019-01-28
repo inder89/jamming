@@ -4,15 +4,15 @@ import Track from '../Track/Track';
 
  class TrackList extends Component {
     render() {
-        
+        const data = Array.from(this.props.tracks);
        
         return this.props.tracks ? 
             (
                 <div className="TrackList">
-                    {console.log(this.props.tracks)}
+                    {console.log(data)}
                         { 
-                            this.props.tracks.map((track) => { 
-                                return (<Track track={track} key={track.id} onAdd={this.props.onAdd} isRemoval={this.props.isRemoval} />)
+                            data.map((track) => { 
+                                return (<Track track={track} key={track.id} onAdd={this.props.onAdd} onRemove={this.props.onRemove} isRemoval={this.props.isRemoval} />)
                             })
                         }
                             
