@@ -72,12 +72,13 @@ class App extends Component {
   }
 
   savePlaylist() {
-    let uri = this.state.playlistTracks.trackURIs;
+    let trackURIs = this.state.playlistTracks.uri;
   }
 
-  search(term) {
-    Spotify.search(term);
-    //console.log(term);
+  search(term){
+    Spotify.search(term).then(items => this.setState({
+      searchResults: items
+    }));
   }
 
   render() {
