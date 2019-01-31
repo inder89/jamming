@@ -9,41 +9,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [ 
-      {
-        id: '1',
-        name: "Akhar",
-        artist: "Amrinder Gill",
-        album: "Lahoriye",
-      }, 
-      {
-        id: '2',
-        name: "Car Reebna Wali",
-        artist: "Amrinder Gill",
-        album: "Bhajjo Veero Ve",
-      }, 
-      {
-        id: '3',
-        name: "Mera Deewanapan",
-        artist: "Dr Zeus",
-        album: "Judaa 2",
-      } ],
-      playlistName: "",
-
-      playlistTracks: [
-        {
-        id: '4',
-        name: "Kurta Suha",
-        artist: "Amrinder Gill",
-        album: "Angrez",
-        },
-        {
-        id: '5',
-        name: "jatt",
-        artist: "Amrinder Gill",
-        album: "Love Punjab",
-        },
-      ]
+      searchResults: [ ],
+      playlistName: "New Playlist",
+      playlistTracks: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -72,13 +40,24 @@ class App extends Component {
   }
 
   savePlaylist() {
-    let trackURIs = this.state.playlistTracks.uri;
+    const trackURIs = this.state.playlistTracks.map(track => track.uris);
+
+   Spotify.savePlaylist(this.state.playlistName, trackURIs)
+      .then(() => this.setState({
+        playlistTracks: [],
+        playlistName: 'New Playlist'
+      }));
+    
   }
 
   search(term){
     Spotify.search(term).then(items => this.setState({
       searchResults: items
     }));
+  }
+
+  componentDidMount() {
+    Spotify.getAccessToken();
   }
 
   render() {

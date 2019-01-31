@@ -1,10 +1,8 @@
-import React from 'react';
-import SearchBar from '../Components/SearchBar/SearchBar';
-
 const clientId = '8c5ff53cd84f4b9db5af97123759bb59';
 const redirectUri = 'http://localhost:3000/';
 
-let accessToken = '';
+
+let accessToken;    //* variable to store user access token
 let expiresIn;
 
 const Spotify = {
@@ -56,6 +54,49 @@ const Spotify = {
                         }
                        
                 });
+    },
+
+    savePlaylist(addPlaylist, trackURIs) {
+        if((!addPlaylist) || (!trackURIs) ){
+            return;
+        }
+
+        let userToken = this.getAccessToken();
+            
+        let userID = '';
+        let playlistID = '';
+        
+        let url = `https://api.spotify.com/v1/me`;
+
+        return fetch(url, {
+             headers : {
+                Authorization: `Bearer ${userToken}`
+            }
+        }).then(response => response.json())
+        .then(jsonResponse => userID = jsonResponse.id)
+        .then(() => {
+            const playlistEndpoint = `https://api.spotify.com/v1/users/${userID}/playlists`;
+            fetch(playlistEndpoint, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${userToken}`},
+                    body: JSON.stringify({
+                        name: addPlaylist
+                    })
+            }).then(response => response.json())
+            .then(jsonResponse => {
+                playlistID = jsonResponse.id
+               
+            }).then(() => {
+                fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${userToken}`},
+                    body: JSON.stringify({
+                        uris: trackURIs
+                    })
+                });
+            })      
+                
+        })
     }
    
 };
