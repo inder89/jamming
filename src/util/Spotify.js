@@ -76,7 +76,7 @@ const Spotify = {
         .then(jsonResponse => userID = jsonResponse.id)
         .then(() => {
             const playlistEndpoint = `https://api.spotify.com/v1/users/${userID}/playlists`;
-            fetch(playlistEndpoint, {
+            return fetch(playlistEndpoint, {
                     method: 'POST',
                     headers: { Authorization: `Bearer ${userToken}`},
                     body: JSON.stringify({
@@ -84,19 +84,22 @@ const Spotify = {
                     })
             }).then(response => response.json())
             .then(jsonResponse => {
+                console.log(playlistID);
                 playlistID = jsonResponse.id
-               
-            }).then(() => {
-                fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+                console.log("trackUris", trackURIs)
+            }).then(() => {         //POST request to add the tracks to the playlist
+                return fetch(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
                     method: 'POST',
                     headers: { Authorization: `Bearer ${userToken}`},
                     body: JSON.stringify({
                         uris: trackURIs
                     })
-                });
-            })      
+                }).then(response => response.json().then(jsonResponse => {
+                    playlistID = jsonResponse.id;
+                }));
+            });      
                 
-        })
+        }, networkError => console.log(networkError.message));
     }
    
 };

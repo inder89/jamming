@@ -24,7 +24,7 @@ class App extends Component {
     if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
         return;
     } else {
-      let currentPlaylist = this.state.playlistTracks.slice();
+      let currentPlaylist = this.state.playlistTracks.slice(); // * create a copy of the array
       currentPlaylist.push(track);
       this.setState({ playlistTracks: currentPlaylist});
     }
@@ -40,15 +40,18 @@ class App extends Component {
   }
 
   savePlaylist() {
-    const trackURIs = this.state.playlistTracks.map(track => track.uris);
+
+    let trackURIs = [];
+    for(let i= 0; i < this.state.playlistTracks.length; i++) {   //TODO use map instead
+      trackURIs.push(this.state.playlistTracks[i].uri);
+    };
 
    Spotify.savePlaylist(this.state.playlistName, trackURIs)
       .then(() => this.setState({
         playlistTracks: [],
         playlistName: 'New Playlist'
       }));
-    
-  }
+    }
 
   search(term){
     Spotify.search(term).then(items => this.setState({
