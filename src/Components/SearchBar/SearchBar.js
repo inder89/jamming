@@ -4,24 +4,39 @@ import './SearchBar.css';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            term: ''
+        };
         this.search = this.search.bind(this);
         this.handleTermChange = this.handleTermChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     search(term) {
         this.props.onSearch(term);
     }
 
-    handleTermChange(event) {
-        let searchTerm = event.target.value;
-        this.search(searchTerm);
+    handleTermChange(event) {   
+        this.setState({ term: event.target.value});
+    }
+
+    handleSubmit(e) {
+        this.search(this.state.term);
+        e.preventDefault();
+    }
+
+    handleKeyPress(e) {
+        if(e.key === 'Enter') {
+            this.search(this.state.term);
+        }
     }
 
     render() {
         return (
             <div className="SearchBar">
-                <input onChange={this.handleTermChange} placeholder="Enter a Song, Album, Artist" />
-                <a>SEARCH</a>
+                <input onChange={this.handleTermChange} onKeyPress={this.handleKeyPress} placeholder="Enter a Song, Album Or Artist" />
+                <a onClick={this.handleSubmit} >SEARCH</a>
             </div>
 
         );
