@@ -1,5 +1,5 @@
 const clientId = '8c5ff53cd84f4b9db5af97123759bb59';
-const redirectUri = 'https://quickplaylists.netlify.com/';
+const redirectUri = 'http://inder-jammming.surge.sh/';
 
 
 let accessToken;    //* variable to store user access token
