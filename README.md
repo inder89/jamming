@@ -2,6 +2,8 @@ Jammming lets users authenticate to their Spotify account and run a search for t
 Users can also add a custom playlist to their spotify account. 
 The app uses Spotify API to retrieve the tracks. 
 
+![alt text](https://raw.githubusercontent.com/inder/jammming/master/img.jpeg)
+
 ## Available Scripts
 
 In the project directory, you can run:
