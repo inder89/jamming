@@ -3,7 +3,6 @@ Users can also add a custom playlist to their spotify account.
 The app uses Spotify API to retrieve the tracks. 
 
 ![example](/img/example.jpeg)
-Format: ![Alt Text](url)
 
 
 ## Available Scripts
