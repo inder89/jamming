@@ -7,9 +7,9 @@ class SearchResults extends Component {
         return(
             <div className="SearchResults">
                 <h2>Results</h2>
-                <TrackList tracks={this.props.searchResults} 
-                    onAdd={this.props.onAdd} 
-                    isRemoval={false} 
+                <TrackList tracks={this.props.searchResults}  // * getting the tracks from state
+                    onAdd={this.props.onAdd}   // * use the add track function declared in App component
+                    isRemoval={false}    // * the logic to show +/- button
                 />
             </div>
         );

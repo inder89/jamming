@@ -4,14 +4,13 @@ import Track from '../Track/Track';
 
  class TrackList extends Component {
     render() {
-        const data = Array.from(this.props.tracks);
+        const data = Array.from(this.props.tracks); 
        
-        return this.props.tracks ? 
+        return this.props.tracks ? //* check if the tracks exist
             (
                 <div className="TrackList">
-                    {console.log(data)}
                         { 
-                            data.map((track) => { 
+                            data.map((track) => { //* return a Track component for every track in the playlist tracks
                                 return (<Track track={track} 
                                             key={track.id} 
                                             onAdd={this.props.onAdd} 

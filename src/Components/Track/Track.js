@@ -9,7 +9,7 @@ class Track extends Component{
         this.removeTrack = this.removeTrack.bind(this);
     }
     
-    renderAction(isRemoval) {
+    renderAction(isRemoval) {  //* function to render a '+ or '-' according to the state of track
         if(isRemoval) {
             return <a className="Track-action" onClick={this.removeTrack}> - </a>;
         } else {

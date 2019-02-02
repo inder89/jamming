@@ -4,7 +4,7 @@ import './SearchBar.css';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = {  // * creating the state for term searched
             term: ''
         };
         this.search = this.search.bind(this);
@@ -13,20 +13,20 @@ class SearchBar extends Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    search(term) {
-        this.props.onSearch(term);
+    search(term) {  
+        this.props.onSearch(term);  //* invoking the function declared as props from App component
     }
 
-    handleTermChange(event) {   
+    handleTermChange(event) {    // * as the user types in the search bar change the state
         this.setState({ term: event.target.value});
     }
 
-    handleSubmit(e) {
+    handleSubmit(e) {  // * handle the click on search button and invoking the function with whatever user has typed in
         this.search(this.state.term);
         e.preventDefault();
     }
 
-    handleKeyPress(e) {
+    handleKeyPress(e) {  // * functionality to search tracks using the 'enter' key
         if(e.key === 'Enter') {
             this.search(this.state.term);
         }

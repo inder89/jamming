@@ -20,33 +20,32 @@ class App extends Component {
     this.search = this.search.bind(this);
   }
 
-  addTrack(track){
-    if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+  addTrack(track){  // * add track to playlist
+    if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {  // * check if the track to be added already exists 
         return;
     } else {
       let currentPlaylist = this.state.playlistTracks.slice(); // * create a copy of the array
-      currentPlaylist.push(track);
-      this.setState({ playlistTracks: currentPlaylist});
+      currentPlaylist.push(track);  //* if the track doesn't exist, push it to the newly copied array
+      this.setState({ playlistTracks: currentPlaylist});  // * setting the state of the playlist 
     }
   }
 
-  removeTrack(track){
-    let currentPlaylist = this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id);
-    this.setState({ playlistTracks: currentPlaylist});
+  removeTrack(track){  //* remove the track when the user presses '-' button
+    let currentPlaylist = this.state.playlistTracks.filter(savedTrack => savedTrack.id !== track.id); 
+    this.setState({ playlistTracks: currentPlaylist});  //* filtering out the array except the track which is to be removed
   }
 
-  updatePlaylistName(input){
+  updatePlaylistName(input){   // * changing the playlist name change
     this.setState({ playlistName: input});
   }
 
-  savePlaylist() {
-
-    let trackURIs = [];
+  savePlaylist() { //* saving the playlist using POST to spotify api
+    let trackURIs = [];  // *array to be passed as argument to spotify
     for(let i= 0; i < this.state.playlistTracks.length; i++) {   //TODO use map instead
-      trackURIs.push(this.state.playlistTracks[i].uri);
+      trackURIs.push(this.state.playlistTracks[i].uri);  // * creating an array of track uris to push to user's spotify 
     };
 
-   Spotify.savePlaylist(this.state.playlistName, trackURIs)
+   Spotify.savePlaylist(this.state.playlistName, trackURIs)  // * setting the state after the promise is resolved
       .then(() => this.setState({
         playlistTracks: [],
         playlistName: 'New Playlist'
@@ -55,7 +54,7 @@ class App extends Component {
 
   search(term){
     Spotify.search(term).then(items => this.setState({
-      searchResults: items
+      searchResults: items  // * setting the state with tracks returned from spotify api
     }));
   }
 
@@ -68,14 +67,14 @@ class App extends Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <div className="App">
-              <SearchBar onSearch={this.search} />
+              <SearchBar onSearch={this.search} />    {/* passing search function as props to SearchBar component */} 
               <div className="App-playlist">
-                <SearchResults searchResults={this.state.searchResults} 
-                    onAdd={this.addTrack} 
+                <SearchResults searchResults={this.state.searchResults}  /* passing the state to SearchResults component */
+                    onAdd={this.addTrack}  // * passing addTrack function as props
                 />
-                <Playlist playlist={this.state.playlistName} 
-                    playlistTracks={this.state.playlistTracks} 
-                    onRemove={this.removeTrack} 
+                <Playlist playlist={this.state.playlistName} // * passing the playlist name as props to Playlist component
+                    playlistTracks={this.state.playlistTracks}  //* passing playlist tracks
+                    onRemove={this.removeTrack}  
                     onNameChange={this.updatePlaylistName} 
                     onSave={this.savePlaylist} 
                 />
