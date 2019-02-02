@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Jammming lets users authenticate to their Spotify account and run a search for tracks using an artist, album or track name.
+Users can also add a custom playlist to their spotify account. 
+The app uses Spotify API to retrieve the tracks. 
 
 ## Available Scripts
 
